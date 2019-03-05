@@ -1,0 +1,73 @@
+
+Q.1 Write a query for the HR department to produce the addresses of all the departments.
+    Use the LOCATIONS and COUNTRIES tables. Show the location ID, street address,
+    city, state or province, and country in the output. Run the query
+
+Ans=  select location_id,street_address,state_province,country_name from locations,countries WHERE locations,country_id=countries.country_id;
+
+Q.2 The HR department needs a report of employees in Toronto. Display the last name, job,   
+    department number, and department name for all employees who work in Toronto
+
+Ans= select employees.last_name,employees.job_id,employees.department_id,departments.department_name from employees join departments on employees.department_id=departments.department_id join locations on departments.location_id=locations.location_id WHERE city="Toronto";select * from locations;
+select * from countries;
+
+Q.3 Create a report for HR that displays the last name and salary of every employee who reports to   
+    King.
+
+Ans= select last_name,salary from employees WHERE manager_id=(select employee_id from employees WHERE last_name='king');
+
+
+Q.4 Create Table MY_EMPLOYEE. Description is shown below:
+
+Ans= create table my_employee(ID int not NULL,last_name varchar(25),first_name varchar(25),UserID varchar(8),salary int);
+
+
+
+Q.5Add the following data to the MY_EMPLOYEE table 
+Ans= insert into my_employee values
+     (1,'Ralph','Patel','rpatel',895),
+     (2,'Betty','dancs','bdancs',860),
+     (3,'Ben','Berry','bhiri',1100),
+     (4,'Chad','Newman','cnewman',750),
+     (5,'Ropeburn','Aundrey','aeroper',1550);
+
+
+
+
+Q.6 Change the last name of employee 3 to Drexler.
+ Ans=update my_employee set last_name='Drexler' WHERE id=3;
+
+Q.7 Change the salary to $1,000 for all employees who have a salary less than $900.
+
+Ans=  Update my_employee set salary=1000 WHERE salary<900;
+
+Q.8 Delete Betty Dancs from the MY_EMPLOYEE table.
+
+Ans= delete from my_employee WHERE last_name='dancs' and first_name='Betty';
+
+Q.9 Mark an intermediate point in the processing of the transaction.
+
+Ans= savepoint first;
+
+
+Q.10 Delete all the rows from the MY_EMPLOYEE table.  Confirm that the table is empty.
+
+Ans= delete from my_employee;
+
+Q.11 Discard the most recent DELETE operation.
+
+Ans= rollback to a;
+
+Q.12 Make the data addition permanent.
+
+Ans= savepoint step_17;
+
+Q.13 The staff in the HR department wants to hide some of the data in the EMPLOYEES table. Create 
+      a view called EMPLOYEES_VU based on the employee numbers, employee last names, and 
+     department numbers from the EMPLOYEES table. The heading for the employee name should be  
+     EMPLOYEE.
+
+     Confirm that the view works. Display the contents of the EMPLOYEES_VU view
+
+Ans= create view employees_VU As select employee_id,last_name As employee,department_id from employees;
+      select * from employees_VU;
